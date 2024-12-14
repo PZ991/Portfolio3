@@ -4,16 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MG's Portfolio</title>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
     <style>
-        body, html {
+         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             font-family: Arial, sans-serif;
             overflow: hidden;
-            background: url('bg.jpg') no-repeat center center fixed;
-            background-size: cover;
+            background: #000; /* Fallback background */
+        }
+
+        /* Particle Background */
+        #particles-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
         }
 
         .logo-container {
@@ -21,6 +31,8 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            position: relative;
+            z-index: 1;
         }
 
         .logo {
@@ -40,6 +52,8 @@
             display: none;
             padding: 40px;
             background-color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 1;
         }
 
         .category {
@@ -167,6 +181,7 @@
     </style>
 </head>
 <body>
+    <div id="particles-js"></div>
 
     <div class="logo-container">
         <img src="name.png" alt="Fionna's Portfolio" class="logo" />
@@ -189,6 +204,22 @@
     </div>
 
     <script>
+        particlesJS("particles-js", {
+    particles: {
+        number: { value: 50 },
+        size: { value: 3 },
+        move: { enable: true },
+        line_linked: {
+            enable: true,
+            distance: 150,
+            color: "#ffffff",
+            opacity: 0.4,
+            width: 1,
+        },
+    },
+});
+
+
         const categories = [
             {
                 title: "Website Projects",
@@ -197,12 +228,12 @@
                         name: "Business Website for BFFVARNBREAD",
                         description: "A modern business website.",
                         detailedDescription: "A full-featured realty website with responsive design and inventory and record integration.",
-                        image: "Images/bff.jpg",
+                        image: "Images/Websites/BFF/bff.jpg",
                         link: "Web Projects/bff.html"
                     },
                     {
                         name: "Filasia Platform",
-                        description: "Interactive platform for Filasia.",
+                        description: "Uploading...",
                         detailedDescription: "Created a dynamic platform with user login, data analytics, and rich interactive elements for Filasia.",
                         image: "https://via.placeholder.com/300x200",
                         link: "https://example.com/bffvarnbread"
@@ -210,7 +241,7 @@
                     },
                     {
                         name: "Inventory Management System for LionsTech",
-                        description: "some other information",
+                        description: "Uploading...",
                         detailedDescription: "Click to view more",
                         image: "https://via.placeholder.com/300x200",
                         link: "https://example.com/bffvarnbread"
@@ -218,7 +249,7 @@
                     },
                     {
                         name: "Learning Website",
-                        description: "some other information",
+                        description: "Uploading...",
                         detailedDescription: "Click to view more",
                         image: "https://via.placeholder.com/300x200",
                         link: "https://example.com/bffvarnbread"
@@ -232,7 +263,7 @@
                 products: [
                     {
                         name: "MIRA Translator App",
-                        description: "Sign language translation app.",
+                        description: "Uploading...",
                         detailedDescription: "An AI-powered mobile application that translates sign language into text and speech in real-time.",
                         image: "https://via.placeholder.com/300x200",
                         link: "https://example.com/bffvarnbread"
@@ -240,7 +271,7 @@
                     },
                     {
                         name: "ARVenture Game",
-                        description: "Augmented reality adventure game.",
+                        description: "Uploading...",
                         detailedDescription: "Developed an engaging augmented reality game combining real-world exploration with digital challenges.",
                         image: "https://via.placeholder.com/300x200",
                         link: "https://example.com/bffvarnbread"
@@ -248,7 +279,7 @@
                     },
                     {
                         name: "OMRScanner",
-                        description: "some other information",
+                        description: "Uploading...",
                         detailedDescription: "Click to view more",
                         image: "https://via.placeholder.com/300x200",
                         link: "https://example.com/bffvarnbread"
@@ -257,7 +288,7 @@
                     
                     {
                         name: "AmpingPahiyom",
-                        description: "some other information",
+                        description: "Uploading...",
                         detailedDescription: "Click to view more",
                         image: "https://via.placeholder.com/300x200",
                         link: "https://example.com/bffvarnbread"
@@ -270,7 +301,7 @@
                 products: [
                     {
                         name: "3D modelling and animation",
-                        description: "all 3d models that I have made",
+                        description: "Uploading...",
                         detailedDescription: "tba",
                         image: "https://via.placeholder.com/300x200",
                         link: "https://example.com/bffvarnbread"
@@ -281,14 +312,48 @@
             {
                 title: "Certificates",
                 products: [
-                    {
+                {
                         name: "Alpha Head of development",
-                        description: "organization head lead of all developers",
+                        description: "Uploading...",
                         detailedDescription: "tba",
-                        image: "https://via.placeholder.com/300x200",
+                        image: "Images/Certs/H.jpg",
                         link: "https://example.com/bffvarnbread"
 
                     },
+                    {
+                        name: "IoT 2024 Finalists",
+                        description: "Uploading...",
+                        detailedDescription: "tba",
+                        image: "Images/Certs/IoT.png",
+                        link: "https://example.com/bffvarnbread"
+
+                    },
+                    {
+                        name: "Game development competition",
+                        description: "Uploading...",
+                        detailedDescription: "tba",
+                        image: "Images/Certs/GD.jpg",
+                        link: "https://example.com/bffvarnbread"
+
+                    },
+                    {
+                        name: "Cybersecurity for Everyone",
+                        description: "Uploading...",
+                        detailedDescription: "tba",
+                        image: "Images/Certs/CE.jpg",
+                        link: "https://example.com/bffvarnbread"
+
+                    },
+                    
+                    {
+                        name: "CyberAwareness Challenge 2025",
+                        description: "Uploading...",
+                        detailedDescription: "tba",
+                        image: "Images/Certs/CAC.png",
+                        link: "https://example.com/bffvarnbread"
+
+                    },
+                    
                 ]
             },
         ];
