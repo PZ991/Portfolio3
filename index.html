@@ -116,6 +116,7 @@
         .side-panel-content {
             opacity: 0;
             transition: opacity 0.3s ease;
+            padding-bottom: 60px;
         }
 
         .side-panel-content.visible {
@@ -226,8 +227,34 @@
                 products: [
                     {
                         name: "Realty Management Website for BFFVARNBREAD",
-                        description: "A modern business website.",
-                        detailedDescription: "A full-featured realty website with responsive design and inventory and record integration.",
+                        description: "A complete role-based realty amanagement website.",
+                        detailedDescription: `
+    <p style="text-align: justify;">
+        This realty website offers a comprehensive suite of features designed to meet the diverse needs of real estate businesses. It boasts a responsive design that ensures seamless performance across various devices, whether users are accessing it on a desktop, tablet, or smartphone. The system is fully integrated with inventory and record management functionalities, allowing for efficient tracking of properties, transactions, and client records. This makes it particularly suitable for businesses that operate with different roles and permissions, ensuring secure and streamlined workflows.
+    </p>
+    <p style="text-align: justify;">
+        The website supports multiple user roles, including Admins who oversee system operations, Cashiers who handle payment processing and financial transactions, Buyers who browse and manage property purchases, and Finance personnel who monitor financial records and processes. Additionally, Sales agents can manage property listings and client interactions, while Loaners can oversee and manage financing options for property buyers. This role-based structure ensures that each user has the appropriate access and tools needed for their specific tasks, promoting efficiency, security, and ease of use in real estate operations.
+    </p>
+    <p style="text-align: justify;">
+        <strong>Roles for the system:</strong><br>
+        • Admin<br>
+        • Cashier<br>
+        • Buyer<br>
+        • Finance<br>
+        • Sales<br>
+        • Loaners<br>
+        • Property Manager<br>
+        • IT Support<br>
+    </p>
+    <p style="text-align: justify;">
+        <strong>Development Team:</strong><br>
+        • Jasmin Muro: Team Lead<br>
+        • Marc Gean Octaviano: Lead Web Developer<br>
+        • Carlo Reformado: Web Developer<br>
+        • Yna Baguio: Web Developer<br>
+    </p>
+`
+,
                         image: "Images/Websites/BFF/bff.jpg",
                         link: "Web Projects/bff.html"
                     },
@@ -262,11 +289,11 @@
                 title: "Android Projects",
                 products: [
                     {
-                        name: "MIRA ASL Translator App",
+                        name: "ASL Translator App",
                         description: "Uploading...",
-                        detailedDescription: "An AI-powered mobile application that translates sign language into text and speech in real-time.",
-                        image: "https://via.placeholder.com/300x200",
-                        link: "https://example.com/bffvarnbread"
+                        detailedDescription: "An AI-powered mobile application that translates sign language into text",
+                        image: "Images/Android/ASL/asl.png",
+                        link: "Android Projects/asl.html"
 
                     },
                     {
@@ -395,15 +422,16 @@
         }
 
         function openPanel(product) {
-            document.getElementById('panelImage').src = product.image;
-            document.getElementById('panelTitle').textContent = product.name;
-            document.getElementById('panelDescription').textContent = product.detailedDescription;
-            document.getElementById('viewProjectBtn').href = product.link;
+    document.getElementById('panelImage').src = product.image;
+    document.getElementById('panelTitle').textContent = product.name;
+    document.getElementById('panelDescription').innerHTML = product.detailedDescription;
+    document.getElementById('viewProjectBtn').href = product.link;
 
-            document.getElementById('sidePanel').classList.add('open');
-            document.getElementById('overlay').classList.add('visible');
-            document.getElementById('sidePanelContent').classList.add('visible');
-        }
+    document.getElementById('sidePanel').classList.add('open');
+    document.getElementById('overlay').classList.add('visible');
+    document.getElementById('sidePanelContent').classList.add('visible');
+}
+
 
         function closePanel() {
             document.getElementById('sidePanel').classList.remove('open');
