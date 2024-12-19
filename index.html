@@ -7,18 +7,19 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
     <style>
-        body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-    background: linear-gradient(135deg, #6a0dad, #1e90ff); /* Gradient from violet to blue */
-}
+      body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: #0f0c29;
+            background: linear-gradient(45deg, #24243e, #302b63, #0f0c29);
+            color: #ffffff;
+        }
 
-        /* Particle Background */
         #particles-js {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -33,6 +34,8 @@
             height: 100vh;
             position: relative;
             z-index: 1;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
         }
 
         .logo {
@@ -40,7 +43,8 @@
             width: 80%;
             height: auto;
             opacity: 0;
-            animation: fadeInMoveUp 3s forwards;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+            animation: fadeInMoveUp 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         @keyframes fadeInMoveUp {
@@ -51,62 +55,103 @@
         #content {
             display: none;
             padding: 40px;
-            background-color: rgba(255, 255, 255, 0.9);
             position: relative;
             z-index: 1;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .category {
-            margin-bottom: 40px;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .category.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .category-title {
-            font-size: 2rem;
+            font-size: 2.5rem;
             text-align: center;
-            margin-bottom: 20px;
-            color: #333;
+            margin-bottom: 40px;
+            color: #fff;
             text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
 
         .card-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 20px;
         }
 
         .card {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            transition: transform 0.2s ease-in-out;
-            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .card:hover { transform: scale(1.05); }
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
 
-        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
 
-        .card-body { padding: 20px; text-align: center; }
+        .card:hover img {
+            transform: scale(1.1);
+        }
 
-        .card-title { font-size: 1.5rem; margin: 10px 0; color: #333; }
+        .card-body {
+            padding: 25px;
+            text-align: center;
+        }
 
-        .card-description { font-size: 1rem; color: #777; margin-bottom: 15px; }
+        .card-title {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .card-description {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
 
         .side-panel {
             position: fixed;
             right: -100%;
             top: 0;
-            width: 400px;
+            width: 500px;
             height: 100%;
-            background-color: white;
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-            transition: right 0.3s ease;
-            padding: 20px;
+            background: rgba(20, 20, 40, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 30px;
             overflow-y: auto;
             z-index: 1001;
+            
         }
 
         .side-panel.open {
@@ -115,8 +160,9 @@
 
         .side-panel-content {
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.5s ease;
             padding-bottom: 60px;
+
         }
 
         .side-panel-content.visible {
@@ -126,58 +172,96 @@
         .side-panel img {
             width: 100%;
             height: auto;
-            margin-bottom: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .side-panel h2 {
             margin-top: 0;
             font-size: 2rem;
-            color: #333;
+            color: #fff;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
         }
 
         .side-panel p {
-            font-size: 1rem;
-            color: #555;
-            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            margin-bottom: 20px;
         }
 
         .close-btn {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: red;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 10px 20px;
             cursor: pointer;
             font-size: 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
         }
 
         .view-project-btn {
             display: inline-block;
-            padding: 10px 20px;
-            background-color: #007BFF;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #7928CA, #FF0080);
             color: white;
             text-decoration: none;
             text-align: center;
-            border-radius: 5px;
+            border-radius: 25px;
             margin-top: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(255, 0, 128, 0.3);
         }
 
-        /* Dark Overlay */
+        .view-project-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 0, 128, 0.4);
+        }
+
         .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
             z-index: 1000;
-            display: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
 
         .overlay.visible {
-            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 768px) {
+            .side-panel {
+                width: 100%;
+            }
+            
+            .category-title {
+                font-size: 2rem;
+            }
+            
+            .card-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
         }
     </style>
 </head>
@@ -185,17 +269,13 @@
     <div id="particles-js"></div>
 
     <div class="logo-container">
-        <img src="name.png" alt="Fionna's Portfolio" class="logo" />
+        <img src="name.png" alt="Portfolio" class="logo" />
     </div>
 
     <div id="content"></div>
-
-    <!-- Dark Overlay -->
     <div class="overlay" id="overlay" onclick="closePanel()"></div>
-
-    <!-- Side Panel -->
     <div class="side-panel" id="sidePanel">
-        <button class="close-btn" onclick="closePanel()">Close</button>
+        <button class="close-btn" onclick="closePanel()">×</button>
         <div class="side-panel-content" id="sidePanelContent">
             <img id="panelImage" src="" alt="Project Image">
             <h2 id="panelTitle"></h2>
@@ -205,22 +285,35 @@
     </div>
 
     <script>
+        // Particles.js configuration
         particlesJS("particles-js", {
-    particles: {
-        number: { value: 50 },
-        size: { value: 3 },
-        move: { enable: true },
-        line_linked: {
-            enable: true,
-            distance: 150,
-            color: "#ffffff",
-            opacity: 0.4,
-            width: 1,
-        },
-    },
-});
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#ffffff" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false,
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                },
+            },
+        });
 
-
+        // Your existing categories array remains the same
         const categories = [
             {
                 title: "Website Projects",
@@ -462,24 +555,40 @@ On the backend, the system excels at inventory management by keeping accurate re
             categories.forEach(category => {
                 content.appendChild(createCategory(category));
             });
+            
+            // Add intersection observer for fade-in animation
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.category').forEach(category => {
+                observer.observe(category);
+            });
         }
 
         function openPanel(product) {
-    document.getElementById('panelImage').src = product.image;
-    document.getElementById('panelTitle').textContent = product.name;
-    document.getElementById('panelDescription').innerHTML = product.detailedDescription;
-    document.getElementById('viewProjectBtn').href = product.link;
+            document.getElementById('panelImage').src = product.image;
+            document.getElementById('panelTitle').textContent = product.name;
+            document.getElementById('panelDescription').innerHTML = product.detailedDescription;
+            document.getElementById('viewProjectBtn').href = product.link;
 
-    document.getElementById('sidePanel').classList.add('open');
-    document.getElementById('overlay').classList.add('visible');
-    document.getElementById('sidePanelContent').classList.add('visible');
-}
-
+            document.getElementById('sidePanel').classList.add('open');
+            document.getElementById('overlay').classList.add('visible');
+            setTimeout(() => {
+                document.getElementById('sidePanelContent').classList.add('visible');
+            }, 300);
+        }
 
         function closePanel() {
-            document.getElementById('sidePanel').classList.remove('open');
-            document.getElementById('overlay').classList.remove('visible');
             document.getElementById('sidePanelContent').classList.remove('visible');
+            setTimeout(() => {
+                document.getElementById('sidePanel').classList.remove('open');
+                document.getElementById('overlay').classList.remove('visible');
+            }, 300);
         }
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -487,12 +596,11 @@ On the backend, the system excels at inventory management by keeping accurate re
             const content = document.getElementById('content');
 
             logoContainer.addEventListener('animationend', function () {
-                renderCategories();
                 content.style.display = 'block';
                 document.body.style.overflow = 'auto';
+                renderCategories();
             });
         });
     </script>
-
 </body>
 </html>
