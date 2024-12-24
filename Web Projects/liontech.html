@@ -269,14 +269,43 @@
         }
 
         @media (max-width: 768px) {
-            .sidebar {
-                width: 200px;
-            }
+    .sidebar {
+        width: 0;
+        position: absolute;
+        transition: width 0.3s ease;
+        overflow: hidden;
+    }
 
-            .card-container {
-                grid-template-columns: 1fr;
-            }
-        }
+    .sidebar.active {
+        width: 200px;
+    }
+
+    .hamburger {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background-color: var(--primary-color);
+        color: var(--text-color);
+        padding: 10px;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        z-index: 1000;
+    }
+}
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .preview-panel {
+        width: 100%;
+        display: block;
+        margin-top: 20px;
+    }
+}
+
+
+
 
         @keyframes fadeIn {
             from { opacity: 0; }
