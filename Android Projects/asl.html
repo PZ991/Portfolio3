@@ -7,13 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-      :root {
-            --primary-color: #007BFF;
-            --secondary-color: #6c757d;
-            --background-light: #f8f9fa;
-            --background-dark: #343a40;
-            --text-color: #212529;
-            --border-radius: 12px;
+    :root {
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary-color: #94a3b8;
+            --background-dark: #0f172a;
+            --background-darker: #0a0f1d;
+            --card-background: #1e293b;
+            --text-color: #e2e8f0;
+            --border-radius: 16px;
             --transition-speed: 0.3s;
         }
 
@@ -26,9 +28,10 @@
         body, html {
             height: 100%;
             width: 100%;
-            font-family: 'Inter', Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
             color: var(--text-color);
+            background: var(--background-darker);
         }
 
         #app {
@@ -39,20 +42,33 @@
 
         .sidebar {
             width: 280px;
-            background-color: var(--background-dark);
-            color: white;
+            background: var(--background-dark);
+            color: var(--text-color);
             height: 100vh;
             overflow-y: auto;
-            padding: 20px;
-            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-            transition: width var(--transition-speed);
+            padding: 24px;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+            transition: all var(--transition-speed);
+            position: relative;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
         }
 
         .sidebar h2 {
-            text-align: center;
+            text-align: left;
             margin-bottom: 30px;
-            color: var(--primary-color);
-            font-weight: 600;
+            color: var(--text-color);
+            font-weight: 700;
+            font-size: 1.5rem;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .sidebar ul {
@@ -63,27 +79,36 @@
             padding: 12px 15px;
             cursor: pointer;
             border-radius: var(--border-radius);
-            transition: background-color var(--transition-speed);
+            transition: all var(--transition-speed);
             display: flex;
             align-items: center;
             justify-content: space-between;
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+            font-weight: 500;
         }
 
         .sidebar li:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
         }
 
         .sidebar .nested {
             display: none;
             padding-left: 15px;
             margin-top: 5px;
+            font-weight: 400;
+        }
+
+        .sidebar .expandable {
+            position: relative;
         }
 
         .sidebar .expandable::after {
             content: '▶';
             font-size: 0.8em;
-            margin-left: 10px;
             transition: transform var(--transition-speed);
+            opacity: 0.7;
         }
 
         .sidebar .expanded::after {
@@ -94,101 +119,138 @@
             display: flex;
             flex-grow: 1;
             overflow: hidden;
+            background: var(--background-darker);
         }
 
         .content {
             width: 60%;
-            padding: 30px;
-            background-color: var(--background-light);
+            padding: 40px;
             overflow-y: auto;
+            background: var(--background-darker);
+        }
+
+        .content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background: var(--secondary-color);
+            border-radius: 4px;
         }
 
         .section {
-            margin-bottom: 40px;
-            background-color: white;
+            margin-bottom: 50px;
+            background: var(--card-background);
             border-radius: var(--border-radius);
-            padding: 25px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform var(--transition-speed);
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
         }
 
         .section-title {
             font-size: 1.8rem;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: var(--primary-color);
             border-bottom: 3px solid var(--primary-color);
-            padding-bottom: 10px;
+            padding-bottom: 15px;
+            font-weight: 700;
         }
 
         .card-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
 
         .card {
-            background-color: white;
-            border: 1px solid #e9ecef;
+            background: var(--background-dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--border-radius);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-            display: flex;
-            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
             cursor: pointer;
             transition: all var(--transition-speed);
-            padding: 20px;
-            gap: 20px;
-            width: 90%; 
         }
 
         .card:hover {
-            transform: translateX(10px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary-color);
         }
 
         .card img {
-            width: 150px; 
-            height: 150px;
+            width: 100%;
+            height: 200px;
             object-fit: cover;
-            border-radius: var(--border-radius);
+            transition: transform var(--transition-speed);
+        }
+
+        .card:hover img {
+            transform: scale(1.05);
         }
 
         .card-content {
-            flex-grow: 1;
+            padding: 20px;
         }
 
         .card-content h3 {
             font-size: 1.4rem;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             color: var(--primary-color);
+            font-weight: 600;
         }
 
         .card-content p {
             color: var(--secondary-color);
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
 
         .preview-panel {
             width: 40%;
-            padding: 30px;
-            background-color: white;
+            padding: 40px;
+            background: var(--card-background);
             display: none;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             text-align: center;
-            box-shadow: -4px 0 10px rgba(0, 0, 0, 0.05);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
         }
 
         .preview-panel img {
             max-width: 100%;
-            max-height: 60%;
             border-radius: var(--border-radius);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            transition: transform var(--transition-speed);
+        }
+
+        .preview-panel img:hover {
+            transform: scale(1.02);
         }
 
         .preview-details {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--secondary-color);
             max-width: 90%;
+            line-height: 1.8;
+            text-align: left;
+            padding: 20px;
+            background: var(--background-dark);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 240px;
+            }
         }
 
         @media (max-width: 1024px) {
@@ -199,20 +261,39 @@
             .content, .preview-panel {
                 width: 100%;
             }
+
+            .preview-panel {
+                max-height: 50vh;
+            }
         }
 
-        .preview-panel img,
-.preview-panel video {
-    max-width: 100%;
-    max-height: 300px; 
-    height: 300px;   
-    width: auto;
-    border-radius: var(--border-radius);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    object-fit: cover; 
-    margin-bottom: 20px;
-}
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
 
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .section {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .card {
+            animation: slideIn 0.5s ease-out;
+        }
     </style>
 </head>
 <body>
