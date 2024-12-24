@@ -4,11 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modular Sidebar with Card Preview</title>
+    <title>LionsTech Showcase</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
     <style>
-             :root {
+        :root {
             --primary-color: #6366f1;
             --primary-hover: #4f46e5;
             --secondary-color: #94a3b8;
@@ -16,7 +15,7 @@
             --background-darker: #0a0f1d;
             --card-background: #1e293b;
             --text-color: #e2e8f0;
-            --border-radius: 16px;
+            --border-radius: 12px;
             --transition-speed: 0.3s;
         }
 
@@ -26,318 +25,311 @@
             box-sizing: border-box;
         }
 
-        body, html {
+        body,
+        html {
             height: 100%;
-            width: 100%;
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
+            line-height: 1.5;
             color: var(--text-color);
             background: var(--background-darker);
+            overflow-x: hidden;
         }
 
         #app {
             display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .sidebar {
-            width: 280px;
-            background: var(--background-dark);
-            color: var(--text-color);
-            height: 100vh;
-            overflow-y: auto;
-            padding: 24px;
-            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
-            transition: all var(--transition-speed);
+            min-height: 100vh;
             position: relative;
         }
 
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
+        .hamburger {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1000;
+            background: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem;
+            color: white;
+            cursor: pointer;
         }
 
-        .sidebar::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 3px;
+        .sidebar {
+            width: 260px;
+            background: var(--background-dark);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            padding: 1rem;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
         }
 
         .sidebar h2 {
-            text-align: left;
-            margin-bottom: 30px;
-            color: var(--text-color);
-            font-weight: 700;
-            font-size: 1.5rem;
-            padding-bottom: 15px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.25rem;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .sidebar ul {
-            list-style-type: none;
+            list-style: none;
+            padding: 0.5rem;
         }
 
         .sidebar li {
-            padding: 12px 15px;
+            padding: 0.75rem;
             cursor: pointer;
-            border-radius: var(--border-radius);
-            transition: all var(--transition-speed);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 4px;
-            font-size: 0.95rem;
-            font-weight: 500;
+            border-radius: 8px;
+            margin: 0.25rem 0;
+            transition: all 0.2s;
         }
 
         .sidebar li:hover {
             background: rgba(255, 255, 255, 0.1);
-            transform: translateX(5px);
-        }
-
-        .sidebar .nested {
-            display: none;
-            padding-left: 15px;
-            margin-top: 5px;
-            font-weight: 400;
-        }
-
-        .sidebar .expandable {
-            position: relative;
-        }
-
-        .sidebar .expandable::after {
-            content: '▶';
-            font-size: 0.8em;
-            transition: transform var(--transition-speed);
-            opacity: 0.7;
-        }
-
-        .sidebar .expanded::after {
-            transform: rotate(90deg);
         }
 
         .main-content {
+            flex: 1;
             display: flex;
-            flex-grow: 1;
-            overflow: hidden;
-            background: var(--background-darker);
+            flex-direction: column;
         }
 
         .content {
-            width: 60%;
-            padding: 40px;
-            overflow-y: auto;
-            background: var(--background-darker);
-        }
-
-        .content::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .content::-webkit-scrollbar-thumb {
-            background: var(--secondary-color);
-            border-radius: 4px;
+            padding: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .section {
-            margin-bottom: 50px;
             background: var(--card-background);
             border-radius: var(--border-radius);
-            padding: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            transition: transform var(--transition-speed);
-        }
-
-        .section:hover {
-            transform: translateY(-5px);
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            color: var(--primary-color);
-            border-bottom: 3px solid var(--primary-color);
-            padding-bottom: 15px;
-            font-weight: 700;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .card-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem 0;
         }
 
         .card {
             background: var(--background-dark);
-            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--border-radius);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            cursor: pointer;
-            transition: all var(--transition-speed);
+            height: 500px;
+            display: flex;
+            flex-direction: column;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            border-color: var(--primary-color);
+        .card-image-container {
+            height: 300px;
+            padding: 1rem;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform var(--transition-speed);
-        }
-
-        .card:hover img {
-            transform: scale(1.05);
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
         }
 
         .card-content {
-            padding: 20px;
-        }
-
-        .card-content h3 {
-            font-size: 1.4rem;
-            margin-bottom: 12px;
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-
-        .card-content p {
-            color: var(--secondary-color);
-            font-size: 1.1rem;
-            line-height: 1.6;
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            border-top: 1px solid var(--secondary-color);
         }
 
         .preview-panel {
-            width: 40%;
-            padding: 40px;
-            background: var(--card-background);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
             display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .preview-content {
+            max-height: 90vh;
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            text-align: center;
-            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.2);
+            position: relative;
             overflow-y: auto;
+            background: var(--background-dark);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+        }
+
+        .preview-image-container {
+            background: #fff;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 200px;
+            max-height: 60vh;
+            flex-shrink: 0; /* Prevent image container from shrinking */
         }
 
         .preview-panel img {
             max-width: 100%;
-            border-radius: var(--border-radius);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            margin-bottom: 30px;
-            transition: transform var(--transition-speed);
-        }
-
-        .preview-panel img:hover {
-            transform: scale(1.02);
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            cursor: pointer;
         }
 
         .preview-details {
-            font-size: 1.1rem;
-            color: var(--secondary-color);
-            max-width: 90%;
-            line-height: 1.8;
+            color: var(--text-color);
             text-align: left;
-            padding: 20px;
-            background: var(--background-dark);
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            width: 100%;
+            overflow-y: auto;
+            line-height: 1.6;
         }
 
-        @media (max-width: 1200px) {
-            .sidebar {
-                width: 240px;
+        .preview-scroll-container {
+            width: 100%;
+            overflow-y: auto;
+            max-height: calc(30vh);
+            margin-top: 1rem;
+            padding-right: 1rem;
+        }
+
+        .close-preview {
+            position: sticky;
+            top: 0;
+            right: 0;
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            margin-bottom: 1rem;
+            z-index: 1001;
+        }
+
+        /* Custom scrollbar styles */
+        .preview-scroll-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .preview-scroll-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .preview-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .preview-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-hover);
+        }
+
+        @media (max-width: 768px) {
+            .preview-panel {
+                padding: 1rem;
+            }
+
+            .preview-content {
+                padding: 1rem;
+            }
+
+            .preview-image-container {
+                max-height: 50vh;
+            }
+
+            .preview-scroll-container {
+                max-height: calc(40vh);
             }
         }
 
         @media (max-width: 1024px) {
-            .main-content {
-                flex-direction: column;
-            }
-
-            .content, .preview-panel {
-                width: 100%;
-            }
-
-            .preview-panel {
-                max-height: 50vh;
+            .sidebar {
+                width: 220px;
             }
         }
 
         @media (max-width: 768px) {
-    .sidebar {
-        width: 0;
-        position: absolute;
-        transition: width 0.3s ease;
-        overflow: hidden;
-    }
+            .hamburger {
+                display: block;
+            }
 
-    .sidebar.active {
-        width: 200px;
-    }
+            .sidebar {
+                position: fixed;
+                transform: translateX(-100%);
+                z-index: 999;
+            }
 
-    .hamburger {
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        background-color: var(--primary-color);
-        color: var(--text-color);
-        padding: 10px;
-        border-radius: var(--border-radius);
-        cursor: pointer;
-        z-index: 1000;
-    }
-}
-@media (max-width: 768px) {
-    .main-content {
-        flex-direction: column;
-    }
+            .sidebar.active {
+                transform: translateX(0);
+            }
 
-    .preview-panel {
-        width: 100%;
-        display: block;
-        margin-top: 20px;
-    }
-}
+            .main-content {
+                margin-left: 0;
+            }
 
-
-
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            .card-container {
+                grid-template-columns: 1fr;
+            }
         }
 
-        @keyframes slideIn {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
+        @media (max-width: 480px) {
+            .content {
+                padding: 1rem;
+            }
 
-        .section {
-            animation: fadeIn 0.5s ease-out;
-        }
+            .section {
+                padding: 1rem;
+            }
 
-        .card {
-            animation: slideIn 0.5s ease-out;
+            .preview-panel {
+                padding: 1rem;
+            }
         }
     </style>
 </head>
 
 <body>
+    <button class="hamburger">☰</button>
     <div id="app"></div>
     <script type="module">
         // Data Module
         const siteData = {
             sections: [
-            {
+                {
                     id: 'section1',
                     title: 'Universal',
                     items: [
-                    {
+                        {
                             title: 'Universal Page',
                             contents: [
                                 {
@@ -345,7 +337,7 @@
                                     description: 'Details about Page 1.',
                                     imageSrc: "../Images/Websites/LionsTech/LogReg/Register.png",
                                     previewImage: '../Images/Websites/LionsTech/LogReg/Register.png',
-                                    previewDetails: 'This is a detailed description for Page 1.'
+                                    previewDetails: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius placerat purus. Fusce quis cursus arcu. Etiam et magna quis arcu semper facilisis eu ac diam. Praesent finibus dictum rutrum. Cras aliquam efficitur luctus. Ut posuere laoreet pellentesque. Morbi vestibulum dui quis ligula malesuada, sed vestibulum orci congue. Duis vehicula mi in neque molestie sollicitudin. Sed odio nisi, ultricies sed lobortis quis, tempus nec velit. Nam sit amet quam pharetra, accumsan sem sit amet, ornare ipsum. Vestibulum in eros nec tortor rutrum tempor eget a justo. Maecenas ac ornare lectus, quis pretium elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius placerat purus. Fusce quis cursus arcu. Etiam et magna quis arcu semper facilisis eu ac diam. Praesent finibus dictum rutrum. Cras aliquam efficitur luctus. Ut posuere laoreet pellentesque. Morbi vestibulum dui quis ligula malesuada, sed vestibulum orci congue. Duis vehicula mi in neque molestie sollicitudin. Sed odio nisi, ultricies sed lobortis quis, tempus nec velit. Nam sit amet quam pharetra, accumsan sem sit amet, ornare ipsum. Vestibulum in eros nec tortor rutrum tempor eget a justo. Maecenas ac ornare lectus, quis pretium elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius placerat purus. Fusce quis cursus arcu. Etiam et magna quis arcu semper facilisis eu ac diam. Praesent finibus dictum rutrum. Cras aliquam efficitur luctus. Ut posuere laoreet pellentesque. Morbi vestibulum dui quis ligula malesuada, sed vestibulum orci congue. Duis vehicula mi in neque molestie sollicitudin. Sed odio nisi, ultricies sed lobortis quis, tempus nec velit. Nam sit amet quam pharetra, accumsan sem sit amet, ornare ipsum. Vestibulum in eros nec tortor rutrum tempor eget a justo. Maecenas ac ornare lectus, quis pretium elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius placerat purus. Fusce quis cursus arcu. Etiam et magna quis arcu semper facilisis eu ac diam. Praesent finibus dictum rutrum. Cras aliquam efficitur luctus. Ut posuere laoreet pellentesque. Morbi vestibulum dui quis ligula malesuada, sed vestibulum orci congue. Duis vehicula mi in neque molestie sollicitudin. Sed odio nisi, ultricies sed lobortis quis, tempus nec velit. Nam sit amet quam pharetra, accumsan sem sit amet, ornare ipsum. Vestibulum in eros nec tortor rutrum tempor eget a justo. Maecenas ac ornare lectus, quis pretium elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius placerat purus. Fusce quis cursus arcu. Etiam et magna quis arcu semper facilisis eu ac diam. Praesent finibus dictum rutrum. Cras aliquam efficitur luctus. Ut posuere laoreet pellentesque. Morbi vestibulum dui quis ligula malesuada, sed vestibulum orci congue. Duis vehicula mi in neque molestie sollicitudin. Sed odio nisi, ultricies sed lobortis quis, tempus nec velit. Nam sit amet quam pharetra, accumsan sem sit amet, ornare ipsum. Vestibulum in eros nec tortor rutrum tempor eget a justo. Maecenas ac ornare lectus, quis pretium elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius placerat purus. Fusce quis cursus arcu. Etiam et magna quis arcu semper facilisis eu ac diam. Praesent finibus dictum rutrum. Cras aliquam efficitur luctus. Ut posuere laoreet pellentesque. Morbi vestibulum dui quis ligula malesuada, sed vestibulum orci congue. Duis vehicula mi in neque molestie sollicitudin. Sed odio nisi, ultricies sed lobortis quis, tempus nec velit. Nam sit amet quam pharetra, accumsan sem sit amet, ornare ipsum. Vestibulum in eros nec tortor rutrum tempor eget a justo. Maecenas ac ornare lectus, quis pretium elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius placerat purus. Fusce quis cursus arcu. Etiam et magna quis arcu semper facilisis eu ac diam. Praesent finibus dictum rutrum. Cras aliquam efficitur luctus. Ut posuere laoreet pellentesque. Morbi vestibulum dui quis ligula malesuada, sed vestibulum orci congue. Duis vehicula mi in neque molestie sollicitudin. Sed odio nisi, ultricies sed lobortis quis, tempus nec velit. Nam sit amet quam pharetra, accumsan sem sit amet, ornare ipsum. Vestibulum in eros nec tortor rutrum tempor eget a justo. Maecenas ac ornare lectus, quis pretium elit.'
                                 },
                                 {
                                     title: 'Login',
@@ -356,7 +348,7 @@
                                 }
                             ]
 
-                        },{
+                        }, {
                             title: 'Profile',
                             contents: [
                                 {
@@ -366,11 +358,11 @@
                                     previewImage: '../Images/Websites/LionsTech/Profile/prof.png',
                                     previewDetails: 'This is a detailed description for Page 1.'
                                 }
-                                
+
                             ]
 
                         },
-                        
+
 
                     ]
                 },
@@ -378,7 +370,7 @@
                     id: 'section2',
                     title: 'Buyer',
                     items: [
-                    {
+                        {
                             title: 'Ordering Process',
                             contents: [
                                 {
@@ -423,11 +415,11 @@
                                     previewImage: '../Images/Websites/LionsTech/Orders/history.png',
                                     previewDetails: 'This is a detailed description for Page 1.'
                                 }
-                                
+
                             ]
 
                         },
-                        
+
 
                     ]
                 },
@@ -435,7 +427,7 @@
                     id: 'section3',
                     title: 'Admin',
                     items: [
-                    {
+                        {
                             title: 'Dashboard',
                             contents: [
                                 {
@@ -480,7 +472,7 @@
                                     previewImage: '../Images/Websites/LionsTech/Product/edit.png',
                                     previewDetails: 'This is a detailed description for Page 1.'
                                 }
-                                
+
                             ]
 
                         },
@@ -488,7 +480,7 @@
                         {
                             title: 'Category Management',
                             contents: [
-                              
+
                                 {
                                     title: 'Category',
                                     description: 'Details about Page 1.',
@@ -504,15 +496,15 @@
                                     previewImage: '../Images/Websites/LionsTech/Category/edit.png',
                                     previewDetails: 'This is a detailed description for Page 1.'
                                 }
-                                
+
                             ]
 
                         },
-                        
+
                         {
                             title: 'Category Management',
                             contents: [
-                              
+
                                 {
                                     title: 'Category',
                                     description: 'Details about Page 1.',
@@ -528,14 +520,14 @@
                                     previewImage: '../Images/Websites/LionsTech/Category/edit.png',
                                     previewDetails: 'This is a detailed description for Page 1.'
                                 }
-                                
+
                             ]
 
                         },
                         {
                             title: 'User Management',
                             contents: [
-                              
+
                                 {
                                     title: 'User',
                                     description: 'Details about Page 1.',
@@ -558,14 +550,14 @@
                                     previewImage: '../Images/Websites/LionsTech/User/edit.png',
                                     previewDetails: 'This is a detailed description for Page 1.'
                                 }
-                                
+
                             ]
 
                         },
                         {
                             title: 'Supplier Management',
                             contents: [
-                              
+
                                 {
                                     title: 'Supplier',
                                     description: 'Details about Page 1.',
@@ -581,15 +573,15 @@
                                     previewImage: '../Images/Websites/LionsTech/Supplier/add.png',
                                     previewDetails: 'This is a detailed description for Page 1.'
                                 }
-                                
-                                
+
+
                             ]
 
                         },
                         {
                             title: 'Service Management',
                             contents: [
-                              
+
                                 {
                                     title: 'Service',
                                     description: 'Details about Page 1.',
@@ -598,16 +590,16 @@
                                     previewDetails: 'This is a detailed description for Page 1.'
                                 }
                                 ,
-        
-                                
+
+
                             ]
 
                         },
                         {
                             title: 'Monetary Management',
                             contents: [
-                              
-                            {
+
+                                {
                                     title: 'Cashier',
                                     description: 'Details about Page 1.',
                                     imageSrc: "../Images/Websites/LionsTech/Monetary/cash.png",
@@ -631,8 +623,8 @@
                                     previewDetails: 'This is a detailed description for Page 1.'
                                 }
                                 ,
-        
-                                
+
+
                             ]
 
                         },
@@ -764,15 +756,37 @@
             }
 
             createPreviewPanel() {
-                const previewPanel = document.createElement('div');
-                previewPanel.className = 'preview-panel';
-                previewPanel.innerHTML = `
-            <img id="previewImage" src="" alt="Preview Image" style="display: none;">
-            <p id="previewDetails" class="preview-details"></p>
-        `;
-                return previewPanel;
-            }
+            const previewPanel = document.createElement('div');
+            previewPanel.className = 'preview-panel';
+            previewPanel.innerHTML = `
+                <div class="preview-content">
+                    <button class="close-preview">×</button>
+                    <div class="preview-image-container">
+                        <img id="previewImage" src="" alt="Preview Image">
+                    </div>
+                    <div class="preview-scroll-container">
+                        <p id="previewDetails" class="preview-details"></p>
+                    </div>
+                </div>
+            `;
 
+            previewPanel.addEventListener('click', (e) => {
+                if (e.target === previewPanel || e.target.classList.contains('close-preview')) {
+                    previewPanel.style.display = 'none';
+                }
+            });
+
+            const previewImage = previewPanel.querySelector('#previewImage');
+            previewImage.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (previewImage.src) {
+                    window.open(previewImage.src, '_blank');
+                }
+            });
+
+            return previewPanel;
+        }
+        
             showPreview(imageSrc, details) {
                 const previewPanel = document.querySelector('.preview-panel');
                 const previewImage = document.getElementById('previewImage');
@@ -780,9 +794,9 @@
 
                 previewPanel.style.display = 'flex';
                 previewImage.src = imageSrc;
-                previewImage.style.display = 'block';
                 previewDetails.textContent = details;
             }
+
         }
 
         // App Module
@@ -804,6 +818,16 @@
 
         // Initialize the application
         new App(siteData);
+
+        document.querySelector('.hamburger').addEventListener('click', () => {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.sidebar') && !e.target.closest('.hamburger')) {
+                document.querySelector('.sidebar').classList.remove('active');
+            }
+        });
     </script>
 </body>
 
