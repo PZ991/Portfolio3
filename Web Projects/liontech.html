@@ -97,7 +97,8 @@
 
         .content {
             padding: 1.5rem;
-            max-width: 1400px;
+            width: 100%;
+            max-width: none;
             margin: 0 auto;
         }
 
@@ -113,6 +114,7 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             padding: 1rem 0;
+            width: 100%;
         }
 
         .card {
@@ -126,7 +128,7 @@
         .card-image-container {
             height: 300px;
             padding: 1rem;
-            background: #fff;
+            background: var(--secondary-color);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -745,7 +747,9 @@
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
+            <div class="card-image-container">
             <img src="${content.imageSrc}" alt="${content.title}">
+        </div>
             <div class="card-content">
                 <h3>${content.title}</h3>
                 <p>${content.description}</p>

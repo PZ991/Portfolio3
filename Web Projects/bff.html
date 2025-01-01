@@ -97,7 +97,8 @@
 
         .content {
             padding: 1.5rem;
-            max-width: 1400px;
+            width: 100%;
+            max-width: none;
             margin: 0 auto;
         }
 
@@ -110,9 +111,11 @@
 
         .card-container {
             display: grid;
+            
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
             padding: 1rem 0;
+            width: 100%;
         }
 
         .card {
@@ -125,8 +128,9 @@
 
         .card-image-container {
             height: 300px;
+            
             padding: 1rem;
-            background: #fff;
+            background: var(--secondary-color);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -186,7 +190,8 @@
             width: 100%;
             min-height: 200px;
             max-height: 60vh;
-            flex-shrink: 0; /* Prevent image container from shrinking */
+            flex-shrink: 0;
+            /* Prevent image container from shrinking */
         }
 
         .preview-panel img {
@@ -317,6 +322,7 @@
         }
     </style>
 </head>
+
 <body>
     <div id="app"></div>
     <script type="module">
@@ -360,7 +366,7 @@
                         {
                             title: 'Finance',
                             contents: [
-                            {
+                                {
                                     title: 'Finance Home',
                                     description: 'Details about Page 2.',
                                     imageSrc: '../Images/Websites/BFF/FYSR/fysr.png',
@@ -388,13 +394,13 @@
                                     previewImage: '../Images/Websites/BFF/FYSR/cv.png',
                                     previewDetails: 'This is a detailed description for Page 3.'
                                 }
-                                
+
                             ]
                         },
                         {
                             title: 'Sales',
                             contents: [
-                            {
+                                {
                                     title: 'Monthly Sales',
                                     description: 'Details about Page 2.',
                                     imageSrc: '../Images/Websites/BFF/Sales/Monthly.png',
@@ -416,13 +422,13 @@
                                     previewImage: '../Images/Websites/BFF/Sales/Yearly.png',
                                     previewDetails: 'This is a detailed description for Page 2.'
                                 }
-                                
+
                             ]
                         },
                         {
                             title: 'Lists',
                             contents: [
-                            {
+                                {
                                     title: 'Buyers List',
                                     description: 'Details about Page 2.',
                                     imageSrc: '../Images/Websites/BFF/Lists/buyer.png',
@@ -444,7 +450,7 @@
                                     previewImage: '../Images/Websites/BFF/Lists/inv.png',
                                     previewDetails: 'This is a detailed description for Page 2.'
                                 }
-                                
+
                             ]
                         }
                     ]
@@ -491,10 +497,10 @@
                                     previewImage: '../Images/Websites/BFF/Payments/selling.png',
                                     previewDetails: 'This is a detailed description for Page 1.'
                                 }
-                                
+
                             ]
                         }
-                        
+
                     ]
                 },
                 {
@@ -555,10 +561,10 @@
                                     previewImage: '../Images/Websites/BFF/Buyer/pay.png',
                                     previewDetails: 'This is a detailed description for Page 1.'
                                 }
-                                
+
                             ]
                         }
-                        
+
                     ]
                 },
                 {
@@ -591,7 +597,7 @@
                                 }
                             ]
                         }
-                        
+
                     ]
                 },
                 {
@@ -611,8 +617,8 @@
                                 {
                                     title: 'Bread Members',
                                     description: 'Details about Page 1.',
-                                    imageSrc: '../Images/Websites/BFF/Bread/mem.png',
-                                    previewImage: '../Images/Websites/BFF/Bread/mem.png',
+                                    imageSrc: '../Images/Websites/BFF/Bread/memb.png',
+                                    previewImage: '../Images/Websites/BFF/Bread/memb.png',
                                     previewDetails: 'This is a detailed description for Page 1.'
                                 },
                                 {
@@ -624,11 +630,11 @@
                                 }
                             ]
                         }
-                        
+
                     ]
                 }
-                
-                
+
+
             ]
         };
 
@@ -741,7 +747,9 @@
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
+            <div class="card-image-container">
             <img src="${content.imageSrc}" alt="${content.title}">
+        </div>
             <div class="card-content">
                 <h3>${content.title}</h3>
                 <p>${content.description}</p>
@@ -751,10 +759,12 @@
                 return card;
             }
 
+
+
             createPreviewPanel() {
-            const previewPanel = document.createElement('div');
-            previewPanel.className = 'preview-panel';
-            previewPanel.innerHTML = `
+                const previewPanel = document.createElement('div');
+                previewPanel.className = 'preview-panel';
+                previewPanel.innerHTML = `
                 <div class="preview-content">
                     <button class="close-preview">×</button>
                     <div class="preview-image-container">
@@ -766,23 +776,23 @@
                 </div>
             `;
 
-            previewPanel.addEventListener('click', (e) => {
-                if (e.target === previewPanel || e.target.classList.contains('close-preview')) {
-                    previewPanel.style.display = 'none';
-                }
-            });
+                previewPanel.addEventListener('click', (e) => {
+                    if (e.target === previewPanel || e.target.classList.contains('close-preview')) {
+                        previewPanel.style.display = 'none';
+                    }
+                });
 
-            const previewImage = previewPanel.querySelector('#previewImage');
-            previewImage.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (previewImage.src) {
-                    window.open(previewImage.src, '_blank');
-                }
-            });
+                const previewImage = previewPanel.querySelector('#previewImage');
+                previewImage.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (previewImage.src) {
+                        window.open(previewImage.src, '_blank');
+                    }
+                });
 
-            return previewPanel;
-        }
-        
+                return previewPanel;
+            }
+
             showPreview(imageSrc, details) {
                 const previewPanel = document.querySelector('.preview-panel');
                 const previewImage = document.getElementById('previewImage');
@@ -826,4 +836,5 @@
         });
     </script>
 </body>
+
 </html>
