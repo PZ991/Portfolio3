@@ -148,72 +148,78 @@
         }
 
         .side-panel {
-    position: fixed;
-    right: -100%;
-    top: 0;
-    width: 100%; /* Changed from 500px to 100% for mobile */
-    height: 100%;
-    background: rgba(20, 20, 40, 0.95);
-    backdrop-filter: blur(10px);
-    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
-    transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 20px;
-    overflow-y: auto;
-    z-index: 1001;
-    box-sizing: border-box; /* Add this to include padding in width calculation */
-}
+            position: fixed;
+            right: -100%;
+            top: 0;
+            width: 100%;
+            /* Changed from 500px to 100% for mobile */
+            height: 100%;
+            background: rgba(20, 20, 40, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 1001;
+            box-sizing: border-box;
+            /* Add this to include padding in width calculation */
+        }
 
-.side-panel.open {
-    right: 0;
-    width: 100%;
-}
+        .side-panel.open {
+            right: 0;
+            width: 100%;
+        }
 
-.side-panel-content {
-    transition: opacity 0.5s ease;
-    padding-bottom: 60px;
-    max-width: 100%; /* Ensure content doesn't overflow */
-}
+        .side-panel-content {
+            transition: opacity 0.5s ease;
+            padding-bottom: 60px;
+            max-width: 100%;
+            /* Ensure content doesn't overflow */
+        }
 
-.side-panel-content img {
-    width: 100%;
-    height: auto;
-    max-width: 100%; /* Ensure images don't overflow */
-    object-fit: cover;
-}
+        .side-panel-content img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            /* Ensure images don't overflow */
+            object-fit: cover;
+        }
 
-.side-panel-content p {
-    word-wrap: break-word; /* Ensure text wraps properly */
-    overflow-wrap: break-word;
-}
+        .side-panel-content p {
+            word-wrap: break-word;
+            /* Ensure text wraps properly */
+            overflow-wrap: break-word;
+        }
 
-/* Adjustments for larger screens */
-@media (min-width: 768px) {
-    .side-panel {
-        width: 500px; /* Original width for desktop */
-    }
-    
-    .side-panel.open {
-        width: 500px;
-    }
-}
+        /* Adjustments for larger screens */
+        @media (min-width: 768px) {
+            .side-panel {
+                width: 500px;
+                /* Original width for desktop */
+            }
 
-/* Additional adjustments for very small screens */
-@media (max-width: 320px) {
-    .side-panel {
-        padding: 15px;
-    }
-    
-    .close-btn {
-        top: 10px;
-        right: 10px;
-        padding: 8px 16px;
-    }
-}
+            .side-panel.open {
+                width: 500px;
+            }
+        }
 
-/* Fix for potential horizontal scrolling */
-body.panel-open {
-    overflow: hidden;
-}
+        /* Additional adjustments for very small screens */
+        @media (max-width: 320px) {
+            .side-panel {
+                padding: 15px;
+            }
+
+            .close-btn {
+                top: 10px;
+                right: 10px;
+                padding: 8px 16px;
+            }
+        }
+
+        /* Fix for potential horizontal scrolling */
+        body.panel-open {
+            overflow: hidden;
+        }
 
         .close-btn {
             position: absolute;
@@ -254,6 +260,57 @@ body.panel-open {
             box-shadow: 0 8px 25px rgba(255, 0, 128, 0.4);
         }
 
+        .button-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        /* Style for the visit website button */
+        .visit-website-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #28CA79, #00FF80);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 25px;
+            margin-top: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(255, 0, 128, 0.3);
+        }
+
+        .visit-website-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 255, 128, 0.4);
+        }
+
+        /* Style for the view certificate button */
+        .view-certificate-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #CA7928, #FF8000);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 25px;
+            margin-top: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 5px 15px rgba(255, 0, 128, 0.3);
+        }
+
+        .view-certificate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 128, 0, 0.4);
+        }
+
+
+
         .overlay {
             position: fixed;
             top: 0;
@@ -286,8 +343,6 @@ body.panel-open {
                 grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             }
         }
-
-        
     </style>
 </head>
 
@@ -306,7 +361,6 @@ body.panel-open {
             <img id="panelImage" src="" alt="Project Image">
             <h2 id="panelTitle"></h2>
             <p id="panelDescription"></p>
-            <a href="#" id="viewProjectBtn" class="view-project-btn" target="_blank">View Project</a>
         </div>
     </div>
 
@@ -373,10 +427,11 @@ body.panel-open {
 `
                         ,
                         image: "Images/Websites/BFF/bff.jpg",
-                        link: "Web Projects/bff.html"
+                        link: "Web Projects/bff.html",
+                        reallink:"https://bffvarnbread.com/auth/login.php"
                     },
                     {
-                        name: "Helpera (Thesis)",
+                        name: "Helpera (Secondary Thesis)",
                         description: "Residential Assistance Booking Platform",
                         detailedDescription: `
     <p style="text-align: justify;">
@@ -398,11 +453,12 @@ Helpera also supports flexible booking management for helpers, allowing them to 
     </p>
 `,
                         image: "Images/Websites/Helpera/helpera.png",
-                        link: "Web Projects/helpera.html"
+                        link: "Web Projects/helpera.html",
+                        reallink:"https://www.helpera.net/"
 
                     },
                     {
-                        name: "Inventory Management System for LionsTech (Thesis)",
+                        name: "Inventory Management System for LionsTech (Secondary Thesis)",
                         description: "Inventory Management System",
                         detailedDescription: `
     <p style="text-align: justify;">
@@ -468,7 +524,8 @@ One of the standout features of ALPHA: WEBSITE is its seamless event registratio
     </p> 
 `
                         , image: "Images/Websites/Alpha/alpha.webp",
-                        link: "Web Projects/alpha.html"
+                        link: "Web Projects/alpha.html",
+                        reallink:"https://alpha-official2024.vercel.app/"
 
                     },
 
@@ -495,22 +552,14 @@ One of the standout features of ALPHA: WEBSITE is its seamless event registratio
                         image: "Images/Websites/Learning/all library.png",
                         link: "Web Projects/tut.html"
 
-                    },
-                    {
-                        name: "Filasia Inventory Management Platform (Capstone)",
-                        description: "System Unavailable",
-                        detailedDescription: "Created a dynamic platform with user login, data analytics, and rich interactive elements for Filasia.",
-                        image: "https://via.placeholder.com/300x200",
-                        link: "https://example.com/bffvarnbread"
-
-                    },
+                    }
                 ]
             },
             {
                 title: "Android Projects",
                 products: [
                     {
-                        name: "ASL Translator App",
+                        name: "AI ASL Translator App (Main Thesis)",
                         description: "Uploading...",
                         detailedDescription: "An AI-powered mobile application that translates sign language into text",
                         image: "Images/Android/ASL/asl.png",
@@ -518,7 +567,7 @@ One of the standout features of ALPHA: WEBSITE is its seamless event registratio
 
                     },
                     {
-                        name: "ARVenture",
+                        name: "ARVenture (Secondary Thesis)",
                         description: "Uploading...",
                         detailedDescription: "Developed an engaging augmented reality game combining real-world exploration with digital challenges.",
                         image: "https://via.placeholder.com/300x200",
@@ -526,7 +575,7 @@ One of the standout features of ALPHA: WEBSITE is its seamless event registratio
 
                     },
                     {
-                        name: "OMRScanner",
+                        name: "OMRScanner (Secondary Thesis)",
                         description: "Uploading...",
                         detailedDescription: "Click to view more",
                         image: "https://via.placeholder.com/300x200",
@@ -606,6 +655,13 @@ One of the standout features of ALPHA: WEBSITE is its seamless event registratio
             },
         ];
 
+        categories.forEach(category => {
+            category.products.forEach(product => {
+                // Set isLive to true for all projects except those with "Uploading..." description
+                product.isLive = product.description !== "Uploading...";
+            });
+        });
+
         function createCard(product) {
             const card = document.createElement('div');
             card.classList.add('card');
@@ -656,17 +712,64 @@ One of the standout features of ALPHA: WEBSITE is its seamless event registratio
         }
 
         function openPanel(product) {
-            document.getElementById('panelImage').src = product.image;
-            document.getElementById('panelTitle').textContent = product.name;
-            document.getElementById('panelDescription').innerHTML = product.detailedDescription;
-            document.getElementById('viewProjectBtn').href = product.link;
-
-            document.getElementById('sidePanel').classList.add('open');
-            document.getElementById('overlay').classList.add('visible');
-            setTimeout(() => {
-                document.getElementById('sidePanelContent').classList.add('visible');
-            }, 300);
-        }
+    document.getElementById('panelImage').src = product.image;
+    document.getElementById('panelTitle').textContent = product.name;
+    document.getElementById('panelDescription').innerHTML = product.detailedDescription;
+    
+    // Clear existing buttons
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'button-container';
+    const isCertificate = categories.find(c => c.title === "Certificates")
+    ?.products.includes(product);
+    if(!isCertificate)
+    {
+    // Add View Project button
+    const viewProjectBtn = document.createElement('a');
+    viewProjectBtn.href = product.link;
+    viewProjectBtn.className = 'view-project-btn';
+    viewProjectBtn.target = '_blank';
+    viewProjectBtn.textContent = 'View Project';
+    buttonContainer.appendChild(viewProjectBtn);
+    }
+    // Check if it's a certificate
+ 
+    
+    if (isCertificate) {
+        // Add View Certificate button for certificates
+        const viewCertBtn = document.createElement('a');
+        viewCertBtn.href = product.image;
+        viewCertBtn.className = 'view-certificate-btn';
+        viewCertBtn.target = '_blank';
+        viewCertBtn.textContent = 'View Certificate';
+        viewCertBtn.onclick = (e) => {
+            e.preventDefault();
+            window.open(product.image, '_blank').focus();
+        };
+        buttonContainer.appendChild(viewCertBtn);
+    } else if (product.isLive) {
+        // Add Visit Website button for non-certificate projects that are live
+        const visitWebsiteBtn = document.createElement('a');
+        visitWebsiteBtn.href = product.reallink;
+        visitWebsiteBtn.className = 'visit-website-btn';
+        visitWebsiteBtn.target = '_blank';
+        visitWebsiteBtn.textContent = 'Visit Website';
+        buttonContainer.appendChild(visitWebsiteBtn);
+    }
+    
+    // Replace existing buttons with new button container
+    const sidePanelContent = document.getElementById('sidePanelContent');
+    const existingButtons = sidePanelContent.querySelector('.button-container');
+    if (existingButtons) {
+        existingButtons.remove();
+    }
+    sidePanelContent.appendChild(buttonContainer);
+    
+    document.getElementById('sidePanel').classList.add('open');
+    document.getElementById('overlay').classList.add('visible');
+    setTimeout(() => {
+        document.getElementById('sidePanelContent').classList.add('visible');
+    }, 300);
+}
 
         function closePanel() {
             document.getElementById('sidePanelContent').classList.remove('visible');
