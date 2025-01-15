@@ -611,32 +611,32 @@ One of the standout features of ALPHA: WEBSITE is its seamless event registratio
                 products: [
                     {
                         name: "Alpha Head of development",
-                        description: "Uploading...",
-                        detailedDescription: "tba",
+                        description: "JUNE 2023 - DECEMBER 2024",
+                        detailedDescription: "As the Head of the Development Team at ALPHA (Alliance of Leading Programmers through Heuristic Approach), I have had the privilege of leading full-stack teams in the development of innovative systems that drive the success of the organization. From the start of the second semester in 2023 to the end of 2024, I spearheaded the design and implementation of several high-impact projects, ensuring their seamless execution and delivery. Throughout this period, I not only led the entire development team but also played a pivotal role in guiding both frontend and backend developers, fostering collaboration, and optimizing workflows. My leadership has been integral in achieving the organization's goals and continuing to build a strong, cohesive, and high-performing development team.",
                         image: "Images/Certs/H.jpg",
                         link: "https://example.com/bffvarnbread"
 
                     },
                     {
                         name: "IoT 2024 Finalists",
-                        description: "Uploading...",
-                        detailedDescription: "tba",
+                        description: "JUNE 25 2024",
+                        detailedDescription: "In the Internet of Things (IoT) Conference 2024, I participated as a finalist and had the opportunity to develop and showcase ShuttleTrack, an innovative transportation tracking system that leverages both LoRaWAN and mobile technologies. The system was designed to enhance real-time tracking and improve transportation management. The conference, held at The Podium Hall, was hosted by PacketHacks, RedMagic, and the Department of Information and Communications Technology (DICT). It focused on the latest advancements in IoT in the Philippines and explored the future plans for adopting IoT technologies nationwide, highlighting the immense potential for IoT to revolutionize various sectors in the country.",
                         image: "Images/Certs/IoT.png",
                         link: "https://example.com/bffvarnbread"
 
                     },
                     {
                         name: "Game development competition",
-                        description: "Uploading...",
-                        detailedDescription: "tba",
+                        description: "NOVEMBER 29 2024",
+                        detailedDescription: "I competed in the STI Game Making Competition, where, despite participating solo in a team-based event, I achieved 1st Runner-Up. The competition required the development of both code and assets from scratch within a 7-hour timeframe. Through dedication and efficient time management, I successfully created an engaging game that showcased my skills in programming, design, and creativity. This experience not only tested my technical abilities but also honed my problem-solving and quick decision-making skills under pressure.",
                         image: "Images/Certs/GD.jpg",
                         link: "https://example.com/bffvarnbread"
 
                     },
                     {
                         name: "Cybersecurity for Everyone",
-                        description: "Uploading...",
-                        detailedDescription: "tba",
+                        description: "JUNE 10 2024",
+                        detailedDescription: "I attended the 'Cybersecurity for Everyone' seminar hosted by the Department of Information and Communications Technology (DICT), where I gained valuable insights on protecting personal information and ensuring safe social media usage. The seminar covered critical topics, including effective cybersecurity techniques, as well as the common patterns and tactics used by cybercriminals. This session provided a comprehensive understanding of how to safeguard digital identities and stay ahead of emerging cyber threats, emphasizing the importance of cybersecurity awareness for individuals and organizations alike.",
                         image: "Images/Certs/CE.jpg",
                         link: "https://example.com/bffvarnbread"
 
@@ -644,8 +644,8 @@ One of the standout features of ALPHA: WEBSITE is its seamless event registratio
 
                     {
                         name: "CyberAwareness Challenge 2025",
-                        description: "Uploading...",
-                        detailedDescription: "tba",
+                        description: "DECEMBER 15 2024",
+                        detailedDescription: "In 2025, I successfully completed the Department of Defense Cyber Awareness Challenge, which provided a comprehensive understanding of cybersecurity best practices and protocols. The challenge covered essential topics such as safeguarding sensitive information, identifying common cyber threats, and adhering to security policies and guidelines. By completing this program, I strengthened my knowledge of cyber hygiene and enhanced my ability to recognize and respond to potential cybersecurity risks, contributing to a stronger security posture in both professional and personal contexts.",
                         image: "Images/Certs/CAC.png",
                         link: "https://example.com/bffvarnbread"
 
@@ -658,7 +658,7 @@ One of the standout features of ALPHA: WEBSITE is its seamless event registratio
         categories.forEach(category => {
             category.products.forEach(product => {
                 // Set isLive to true for all projects except those with "Uploading..." description
-                product.isLive = product.description !== "Uploading...";
+                product.isLive = product.reallink !== ""&& product.reallink !=null;
             });
         });
 
