@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARV Showcase</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary-color: #94a3b8;
+            --background-dark: #0f172a;
+            --background-darker: #0a0f1d;
+            --card-background: #1e293b;
+            --text-color: #e2e8f0;
+            --border-radius: 12px;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            color: var(--text-color);
+            background: var(--background-darker);
+            overflow-x: hidden;
+        }
+
+        #app {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .hamburger {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1000;
+            background: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--background-dark);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            padding: 1rem;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar h2 {
+            font-size: 1.25rem;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0.5rem;
+        }
+
+        .sidebar li {
+            padding: 0.75rem;
+            cursor: pointer;
+            border-radius: 8px;
+            margin: 0.25rem 0;
+            transition: all 0.2s;
+        }
+
+        .sidebar li:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content {
+            padding: 1.5rem;
+            width: 100%;
+            max-width: none;
+            margin: 0 auto;
+        }
+
+        .section {
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem 0;
+            width: 100%;
+        }
+
+        .card {
+            background: var(--background-dark);
+            border-radius: var(--border-radius);
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-image-container {
+            height: 300px;
+            padding: 1rem;
+            background: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .card-content {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            border-top: 1px solid var(--secondary-color);
+        }
+
+        .preview-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .preview-content {
+            max-height: 90vh;
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow-y: auto;
+            background: var(--background-dark);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+        }
+
+        .preview-image-container {
+            background: #fff;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 200px;
+            max-height: 60vh;
+            flex-shrink: 0; /* Prevent image container from shrinking */
+        }
+
+        .preview-panel img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            cursor: pointer;
+        }
+
+        .preview-details {
+            color: var(--text-color);
+            text-align: left;
+            padding: 1rem;
+            width: 100%;
+            overflow-y: auto;
+            line-height: 1.6;
+        }
+
+        .preview-scroll-container {
+            width: 100%;
+            overflow-y: auto;
+            max-height: calc(30vh);
+            margin-top: 1rem;
+            padding-right: 1rem;
+        }
+
+        .close-preview {
+            position: sticky;
+            top: 0;
+            right: 0;
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            margin-bottom: 1rem;
+            z-index: 1001;
+        }
+
+        /* Custom scrollbar styles */
+        .preview-scroll-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .preview-scroll-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .preview-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .preview-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-hover);
+        }
+
+        @media (max-width: 768px) {
+            .preview-panel {
+                padding: 1rem;
+            }
+
+            .preview-content {
+                padding: 1rem;
+            }
+
+            .preview-image-container {
+                max-height: 50vh;
+            }
+
+            .preview-scroll-container {
+                max-height: calc(40vh);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 220px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .sidebar {
+                position: fixed;
+                transform: translateX(-100%);
+                z-index: 999;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content {
+                padding: 1rem;
+            }
+
+            .section {
+                padding: 1rem;
+            }
+
+            .preview-panel {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="module">
+        // Data Module
+        const siteData = {
+            sections: [
+                {
+                    id: 'section1',
+                    title: 'Demo',
+                    items: [
+                        {
+                            title: 'Video',
+                            contents: [
+                                {
+                                    title: 'Video',
+                                    description: 'Details about Page 1.',
+                                    imageSrc: "../Images/Android/ARV/ic_venture.png",
+                                    previewImage: '../Images/Android/ARV/ARVvid.mp4',
+                                    previewDetails: 'This is a detailed description for Page 1.'
+                                }
+                            ]
+                        }
+                    ]
+                },
+               
+                
+            ]
+        };
+
+        class SidebarModule {
+            constructor(data) {
+                this.data = data;
+            }
+
+            createSidebar() {
+                const sidebar = document.createElement('div');
+                sidebar.className = 'sidebar';
+                sidebar.innerHTML = `
+            <h2>Navigation</h2>
+            <ul id="sidebarMenu"></ul>
+        `;
+
+                const sidebarMenu = sidebar.querySelector('#sidebarMenu');
+                this.data.sections.forEach(section => {
+                    const sectionLi = document.createElement('li');
+                    sectionLi.className = 'expandable';
+                    sectionLi.textContent = section.title;
+
+                    const nestedUl = document.createElement('ul');
+                    nestedUl.className = 'nested';
+
+                    section.items.forEach((item, index) => {
+                        const itemId = `${section.id}-${index}`; // Unique ID for each item
+                        const itemLi = document.createElement('li');
+                        itemLi.textContent = item.title;
+                        itemLi.onclick = () => this.navigateTo(itemId);
+                        nestedUl.appendChild(itemLi);
+                    });
+
+                    sectionLi.appendChild(nestedUl);
+                    sidebarMenu.appendChild(sectionLi);
+                });
+
+                this.attachSidebarEventListeners(sidebar);
+                return sidebar;
+            }
+
+            attachSidebarEventListeners(sidebarElement) {
+                sidebarElement.querySelectorAll('.expandable').forEach(item => {
+                    item.addEventListener('click', (event) => {
+                        if (event.target === item) {
+                            item.classList.toggle('expanded');
+                            const nestedMenu = item.querySelector('.nested');
+                            nestedMenu.style.display = nestedMenu.style.display === 'block' ? 'none' : 'block';
+                        }
+                    });
+                });
+            }
+
+            navigateTo(sectionId) {
+                const contentSection = document.querySelector('.content');
+                const section = document.getElementById(sectionId);
+
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+
+        // Content Module
+        class ContentModule {
+            constructor(data) {
+                this.data = data;
+            }
+
+            createContent() {
+                const mainContent = document.createElement('div');
+                mainContent.className = 'main-content';
+
+                const contentSection = document.createElement('div');
+                contentSection.className = 'content';
+
+                this.data.sections.forEach(section => {
+                    section.items.forEach((item, index) => {
+                        const itemId = `${section.id}-${index}`; // Unique ID for each section div
+                        const sectionDiv = document.createElement('div');
+                        sectionDiv.id = itemId;
+                        sectionDiv.className = 'section';
+
+                        const sectionTitle = document.createElement('h2');
+                        sectionTitle.className = 'section-title';
+                        sectionTitle.textContent = `${section.title}: ${item.title}`;
+                        sectionDiv.appendChild(sectionTitle);
+
+                        const cardContainer = document.createElement('div');
+                        cardContainer.className = 'card-container';
+
+                        item.contents.forEach(content => {
+                            const card = this.createCard(content);
+                            cardContainer.appendChild(card);
+                        });
+
+                        sectionDiv.appendChild(cardContainer);
+                        contentSection.appendChild(sectionDiv);
+                    });
+                });
+
+                const previewPanel = this.createPreviewPanel();
+                mainContent.appendChild(contentSection);
+                mainContent.appendChild(previewPanel);
+
+                return mainContent;
+            }
+
+            createCard(content) {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+            <div class="card-image-container">
+            <img src="${content.imageSrc}" alt="${content.title}">
+        </div>
+            <div class="card-content">
+                <h3>${content.title}</h3>
+                <p>${content.description}</p>
+            </div>
+        `;
+                card.onclick = () => this.showPreview(content.previewImage, content.previewDetails);
+                return card;
+            }
+
+            createPreviewPanel() {
+                const previewPanel = document.createElement('div');
+                previewPanel.className = 'preview-panel';
+                previewPanel.innerHTML = `
+                    <div class="preview-content">
+                        <button class="close-preview">×</button>
+                        <div class="preview-image-container" id="previewContainer">
+                            <!-- Media element will be dynamically inserted here -->
+                        </div>
+                        <div class="preview-scroll-container">
+                            <p id="previewDetails" class="preview-details"></p>
+                        </div>
+                    </div>
+                `;
+
+                previewPanel.addEventListener('click', (e) => {
+                    if (e.target === previewPanel || e.target.classList.contains('close-preview')) {
+                        const container = document.getElementById('previewContainer');
+                        const videoElement = container.querySelector('video');
+                        if (videoElement) {
+                            videoElement.pause();
+                        }
+                        previewPanel.style.display = 'none';
+                    }
+                });
+
+                return previewPanel;
+            }
+        
+            showPreview(mediaSrc, details) {
+                const previewPanel = document.querySelector('.preview-panel');
+                const previewContainer = document.getElementById('previewContainer');
+                const previewDetails = document.getElementById('previewDetails');
+
+                // Clear previous content
+                previewContainer.innerHTML = '';
+
+                // Check if the source is a video
+                const isVideo = mediaSrc.toLowerCase().endsWith('.mp4') || 
+                              mediaSrc.toLowerCase().endsWith('.webm') || 
+                              mediaSrc.toLowerCase().endsWith('.mov');
+
+                if (isVideo) {
+                    const video = document.createElement('video');
+                    video.controls = true;
+                    video.autoplay = false;
+                    video.src = mediaSrc;
+                    video.style.maxWidth = '100%';
+                    video.style.maxHeight = '100%';
+                    previewContainer.appendChild(video);
+                } else {
+                    const img = document.createElement('img');
+                    img.src = mediaSrc;
+                    img.alt = "Preview";
+                    img.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        window.open(img.src, '_blank');
+                    });
+                    previewContainer.appendChild(img);
+                }
+
+                previewDetails.textContent = details;
+                previewPanel.style.display = 'flex';
+            }
+        
+
+        }
+
+        // App Module
+        class App {
+            constructor(data) {
+                this.data = data;
+                this.init();
+            }
+
+            init() {
+                const app = document.getElementById('app');
+                const sidebar = new SidebarModule(this.data).createSidebar();
+                const content = new ContentModule(this.data).createContent();
+
+                app.appendChild(sidebar);
+                app.appendChild(content);
+            }
+        }
+
+        // Initialize the application
+        new App(siteData);
+
+        document.querySelector('.hamburger').addEventListener('click', () => {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.sidebar') && !e.target.closest('.hamburger')) {
+                document.querySelector('.sidebar').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
