@@ -428,7 +428,7 @@
                         ,
                         image: "Images/Websites/BFF/bff.jpg",
                         link: "Web Projects/bff.html",
-                        reallink:"https://bffvarnbread.com/auth/login.php"
+                        reallink: "https://bffvarnbread.com/auth/login.php"
                     },
                     {
                         name: "Helpera (Secondary Thesis)",
@@ -454,7 +454,7 @@ Helpera also supports flexible booking management for helpers, allowing them to 
 `,
                         image: "Images/Websites/Helpera/helpera.png",
                         link: "Web Projects/helpera.html",
-                        reallink:"https://www.helpera.net/"
+                        reallink: "https://www.helpera.net/"
 
                     },
                     {
@@ -525,7 +525,7 @@ One of the standout features of ALPHA: WEBSITE is its seamless event registratio
 `
                         , image: "Images/Websites/Alpha/alpha.webp",
                         link: "Web Projects/alpha.html",
-                        reallink:"https://alpha-official2024.vercel.app/"
+                        reallink: "https://alpha-official2024.vercel.app/"
 
                     },
 
@@ -549,7 +549,61 @@ One of the standout features of ALPHA: WEBSITE is its seamless event registratio
                         image: "Images/Websites/Learning/all library.png",
                         link: "Web Projects/tut.html"
 
+                    },
+
+                    {
+                        name: "Canva Clone",
+                        description: "A Clone similar to canva with specific features",
+                        detailedDescription: `
+    <p style="text-align: justify;">
+The Custom Design Studio is a powerful design tool inspired by Canva, offering an extensive range of features tailored for flexibility and creativity. Users can create and manipulate basic shapes and custom shapes, ensuring full creative freedom. The system supports importing SVG files, which can be fully customized, including color, size, and individual element adjustments. Additionally, all SVGs can be converted into image frames, allowing for dynamic and adaptive design elements.     </p>
+    <p style="text-align: justify;">
+The platform also includes line controls for precision editing, text tools for rich typography, and a template system for quick and efficient design creation. To enhance organization, a tagging and collection system enables users to categorize and manage their assets seamlessly. This all-in-one design platform provides an intuitive and powerful experience, making it ideal for both casual and professional designers.    <p style="text-align: justify;">
+        <strong>Usable for everyone</strong><br>
+    </p>
+    <p style="text-align: justify;">
+        <strong>Developer:</strong><br>
+                • Marc Gean Octaviano<br>
+    </p> 
+`,
+                        image: "Images/Websites/Canva/canva_initial.png",
+
                     }
+                ]
+            },
+            {
+                title: "System Projects",
+                products: [
+                    {
+                        name: "Branch Management Information System(NBS)",
+                        description: "System that is used for management for the entire multiple branches under National Bookstore",
+                        detailedDescription: `
+    <p style="text-align: justify;">
+The National Bookstore Branch Management System is a comprehensive platform designed to oversee and manage multiple branches efficiently. This system provides a customizable reporting module, allowing administrators to generate reports tailored to various operational and business requirements. It also includes a branch information management feature, enabling authorized users to view and update essential branch details. The account management system ensures secure access by supporting multiple user roles, each with designated permissions and personalized dashboards    </p>
+     <p style="text-align: justify;">
+Additionally, the maintenance module facilitates the modification and configuration of branch-related data, ensuring smooth operations and seamless updates. By integrating these functionalities, the system enhances operational efficiency, data accuracy, and streamlined decision-making across all branches.    </p>
+   
+    <p style="text-align: justify;">
+        <strong>Usable for everyone</strong><br>
+    </p>
+    <p style="text-align: justify;">
+        <strong>Lead Developer:</strong><br>
+                • Marc Gean Octaviano<br>
+        <strong>Functional Developers:</strong><br>
+                        • Lorenzo Sypio<br>
+                • Patricia Lei Roldan<br>
+                • Alvin Caldo<br>
+
+        <strong>Technical Developer:</strong><br>
+                • Julio Padilla<br>
+
+    </p> 
+`,
+                        image: "Images/System/NBS/nbs_start.png",
+                        // link: "Android Projects/asl.html"
+
+                    }
+
                 ]
             },
             {
@@ -573,7 +627,7 @@ The app's core strength lies in its custom processing system, which goes beyond 
         <strong>Developer:</strong><br>
                 • Marc Gean Octaviano<br>
     </p> 
-`,                   
+`,
                         image: "Images/Android/ASL/asl.png",
                         link: "Android Projects/asl.html"
 
@@ -601,9 +655,9 @@ The app's core strength lies in its custom processing system, which goes beyond 
                 • Koleen Ciacico: Designer/Front-end Android Developer<br>
                 • Patricia Roldan: 3D modeller<br>
     </p> 
-`,                        
-image: "Images/Android/ARV/ic_venture.png",
-link: "Android Projects/arv.html"
+`,
+                        image: "Images/Android/ARV/ic_venture.png",
+                        link: "Android Projects/arv.html"
 
                     },
                     {
@@ -629,8 +683,8 @@ In addition to OMR, the scanner also features optical character recognition (OCR
                 • Ramesh Thiarhia: Back-end Android Developer<br>
     </p> 
     `,
-                            image: "Images/Android/OMR/omr.webp",
-                            link: "Android Projects/omr.html"
+                        image: "Images/Android/OMR/omr.webp",
+                        link: "Android Projects/omr.html"
 
                     },
 
@@ -709,7 +763,7 @@ In addition to OMR, the scanner also features optical character recognition (OCR
         categories.forEach(category => {
             category.products.forEach(product => {
                 // Set isLive to true for all projects except those with "Uploading..." description
-                product.isLive = product.reallink !== ""&& product.reallink !=null;
+                product.isLive = product.reallink !== "" && product.reallink != null;
             });
         });
 
@@ -763,64 +817,63 @@ In addition to OMR, the scanner also features optical character recognition (OCR
         }
 
         function openPanel(product) {
-    document.getElementById('panelImage').src = product.image;
-    document.getElementById('panelTitle').textContent = product.name;
-    document.getElementById('panelDescription').innerHTML = product.detailedDescription;
-    
-    // Clear existing buttons
-    const buttonContainer = document.createElement('div');
-    buttonContainer.className = 'button-container';
-    const isCertificate = categories.find(c => c.title === "Certificates")
-    ?.products.includes(product);
-    if(!isCertificate)
-    {
-    // Add View Project button
-    const viewProjectBtn = document.createElement('a');
-    viewProjectBtn.href = product.link;
-    viewProjectBtn.className = 'view-project-btn';
-    viewProjectBtn.target = '_blank';
-    viewProjectBtn.textContent = 'View Project';
-    buttonContainer.appendChild(viewProjectBtn);
-    }
-    // Check if it's a certificate
- 
-    
-    if (isCertificate) {
-        // Add View Certificate button for certificates
-        const viewCertBtn = document.createElement('a');
-        viewCertBtn.href = product.image;
-        viewCertBtn.className = 'view-certificate-btn';
-        viewCertBtn.target = '_blank';
-        viewCertBtn.textContent = 'View Certificate';
-        viewCertBtn.onclick = (e) => {
-            e.preventDefault();
-            window.open(product.image, '_blank').focus();
-        };
-        buttonContainer.appendChild(viewCertBtn);
-    } else if (product.isLive) {
-        // Add Visit Website button for non-certificate projects that are live
-        const visitWebsiteBtn = document.createElement('a');
-        visitWebsiteBtn.href = product.reallink;
-        visitWebsiteBtn.className = 'visit-website-btn';
-        visitWebsiteBtn.target = '_blank';
-        visitWebsiteBtn.textContent = 'Visit Website';
-        buttonContainer.appendChild(visitWebsiteBtn);
-    }
-    
-    // Replace existing buttons with new button container
-    const sidePanelContent = document.getElementById('sidePanelContent');
-    const existingButtons = sidePanelContent.querySelector('.button-container');
-    if (existingButtons) {
-        existingButtons.remove();
-    }
-    sidePanelContent.appendChild(buttonContainer);
-    
-    document.getElementById('sidePanel').classList.add('open');
-    document.getElementById('overlay').classList.add('visible');
-    setTimeout(() => {
-        document.getElementById('sidePanelContent').classList.add('visible');
-    }, 300);
-}
+            document.getElementById('panelImage').src = product.image;
+            document.getElementById('panelTitle').textContent = product.name;
+            document.getElementById('panelDescription').innerHTML = product.detailedDescription;
+
+            // Clear existing buttons
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'button-container';
+            const isCertificate = categories.find(c => c.title === "Certificates")
+                ?.products.includes(product);
+            if (!isCertificate) {
+                // Add View Project button
+                const viewProjectBtn = document.createElement('a');
+                viewProjectBtn.href = product.link;
+                viewProjectBtn.className = 'view-project-btn';
+                viewProjectBtn.target = '_blank';
+                viewProjectBtn.textContent = 'View Project';
+                buttonContainer.appendChild(viewProjectBtn);
+            }
+            // Check if it's a certificate
+
+
+            if (isCertificate) {
+                // Add View Certificate button for certificates
+                const viewCertBtn = document.createElement('a');
+                viewCertBtn.href = product.image;
+                viewCertBtn.className = 'view-certificate-btn';
+                viewCertBtn.target = '_blank';
+                viewCertBtn.textContent = 'View Certificate';
+                viewCertBtn.onclick = (e) => {
+                    e.preventDefault();
+                    window.open(product.image, '_blank').focus();
+                };
+                buttonContainer.appendChild(viewCertBtn);
+            } else if (product.isLive) {
+                // Add Visit Website button for non-certificate projects that are live
+                const visitWebsiteBtn = document.createElement('a');
+                visitWebsiteBtn.href = product.reallink;
+                visitWebsiteBtn.className = 'visit-website-btn';
+                visitWebsiteBtn.target = '_blank';
+                visitWebsiteBtn.textContent = 'Visit Website';
+                buttonContainer.appendChild(visitWebsiteBtn);
+            }
+
+            // Replace existing buttons with new button container
+            const sidePanelContent = document.getElementById('sidePanelContent');
+            const existingButtons = sidePanelContent.querySelector('.button-container');
+            if (existingButtons) {
+                existingButtons.remove();
+            }
+            sidePanelContent.appendChild(buttonContainer);
+
+            document.getElementById('sidePanel').classList.add('open');
+            document.getElementById('overlay').classList.add('visible');
+            setTimeout(() => {
+                document.getElementById('sidePanelContent').classList.add('visible');
+            }, 300);
+        }
 
         function closePanel() {
             document.getElementById('sidePanelContent').classList.remove('visible');
